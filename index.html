@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techspeech.AI | AI Speech Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <h1>Techspeech.AI</h1>
+            </div>
+            <p class="tagline">AI-Powered Political Sentiment Timeline</p>
+        </header>
+
+        <main>
+            <section class="input-section glass-panel">
+                <h2>Analyze New Speech</h2>
+                <div class="form-group">
+                    <label for="speech-title">Speech Title</label>
+                    <input type="text" id="speech-title" placeholder="e.g., State of the Union 2024">
+                </div>
+                <div class="form-group">
+                    <label for="speech-date">Date</label>
+                    <input type="date" id="speech-date">
+                </div>
+
+                <div class="form-group">
+                    <label>Input Source</label>
+                    <div class="media-controls">
+                        <button id="record-btn" class="media-btn" title="Record Voice">
+                            <span class="icon">🎙️</span> Record Voice
+                        </button>
+                        <button id="upload-btn" class="media-btn" title="Upload Audio/Video">
+                            <span class="icon">📁</span> Upload File
+                        </button>
+                        <input type="file" id="file-input" accept="audio/*,video/*" style="display: none;">
+                    </div>
+                    <div id="recording-status" class="status-text hidden">
+                        <span class="recording-dot"></span> Recording... <span id="recording-time">00:00</span>
+                        <button id="stop-record-btn" class="stop-btn">Stop</button>
+                    </div>
+                    <div id="transcription-status" class="status-text hidden">
+                        <div class="loader-small"></div> Transcribing audio...
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="speech-text">Speech Transcript</label>
+                    <textarea id="speech-text"
+                        placeholder="Paste text or use media controls above to transcribe..."></textarea>
+                </div>
+                <button id="analyze-btn" class="primary-btn">
+                    <span class="btn-text">Analyze Sentiment</span>
+                    <div class="loader" id="btn-loader"></div>
+                </button>
+                <div id="status-message"></div>
+            </section>
+
+            <section class="dashboard-grid">
+                <div class="chart-container glass-panel">
+                    <div class="panel-header">
+                        <h3>Sentiment Timeline</h3>
+                        <div class="chart-controls">
+                            <button class="filter-btn active" data-view="trend">Trend</button>
+                            <button id="load-demo-btn" class="filter-btn"
+                                style="margin-left: 10px; font-size: 0.8rem;">Load Demo Data</button>
+                        </div>
+                    </div>
+                    <canvas id="sentiment-chart"></canvas>
+                </div>
+
+                <div class="history-container glass-panel">
+                    <h3>Analyzed Speeches</h3>
+                    <ul id="speech-list" class="speech-list">
+                        <!-- Items will be injected here -->
+                        <li class="empty-state">No speeches analyzed yet.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by <a href="https://huggingface.co/Xenova/distilbert-base-uncased-finetuned-sst-2-english"
+                    target="_blank">Xenova Transformers</a> & Chart.js</p>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

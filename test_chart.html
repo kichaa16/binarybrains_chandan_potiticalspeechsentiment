@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chart Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.3.1/dist/chartjs-adapter-luxon.umd.min.js"></script>
+    <style>
+        body {
+            background: #111;
+            color: #fff;
+        }
+
+        .container {
+            width: 800px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Chart Test</h1>
+    <div class="container">
+        <canvas id="testChart"></canvas>
+    </div>
+    <script>
+        try {
+            const ctx = document.getElementById('testChart').getContext('2d');
+            console.log('Canvas context:', ctx);
+
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Test Data',
+                        data: [
+                            { x: '2023-01-01', y: 0.5 },
+                            { x: '2023-02-01', y: -0.2 },
+                            { x: '2023-03-01', y: 0.8 }
+                        ],
+                        borderColor: 'red',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: { unit: 'month' }
+                        }
+                    }
+                }
+            });
+            console.log('Chart created:', chart);
+        } catch (e) {
+            console.error('Chart error:', e);
+            document.body.innerHTML += '<h2 style="color:red">' + e.message + '</h2>';
+        }
+    </script>
+</body>
+
+</html>
